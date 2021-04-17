@@ -1,11 +1,22 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { AppService } from './app.service';
 import axios from 'axios';
 import { stringify } from 'qs';
 
 @Controller()
 export class AppController {
-  @Get(':autorization')
+  @Get('ip')
+  async checkIP(): Promise<string> {
+    console.log('Testing IP...');
+    try {
+      const resp = await axios.get('https://api.dev.equifax.ca/logs/v1');
+      return resp.data;
+    } catch (error) {
+      console.dir(error);
+      return error.response.data;
+    }
+  }
+
+  @Get('auth/:autorization')
   async getToken(@Param('autorization') autorization: string): Promise<string> {
     console.log('Testing Equifax Authentication');
     const options = {
