@@ -8,7 +8,7 @@ export class AppController {
   async checkIP(): Promise<string> {
     console.log('Testing IP...');
     try {
-      const resp = await axios.get('https://api.dev.equifax.ca/logs/v1');
+      const resp = await axios.get('https://api.uat.equifax.ca/logs/v1');
       return resp.data;
     } catch (error) {
       console.dir(error);
