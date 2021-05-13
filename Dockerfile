@@ -1,5 +1,5 @@
-FROM registry.access.redhat.com/ubi8/nodejs-12:1
-#FROM node:12.18.3-slim
+#FROM registry.access.redhat.com/ubi8/nodejs-12:1
+FROM node:12.18.3-slim
 
 LABEL maintainer="BC GOV"
 
