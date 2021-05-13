@@ -1,9 +1,30 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import axios from 'axios';
 import { stringify } from 'qs';
+import * as Client from 'ssh2-sftp-client';
 
+interface ConnectConfig {
+  host?: string;
+  port?: number;
+  username?: string;
+  password?: string;
+  privateKey?: Buffer | string;
+  passphrase?: string;
+}
 @Controller()
 export class AppController {
+  @Post()
+  async checkSSH(@Body() connectConfig: ConnectConfig): Promise<string> {
+    console.log('Testing SSH connectivity...');
+    try {
+      const client = new Client();
+      await client.connect(connectConfig);
+    } catch (error) {
+      console.dir(error);
+      return error;
+    }
+  }
+
   @Get('ip')
   async checkIP(): Promise<string> {
     console.log('Testing IP...');
